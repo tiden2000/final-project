@@ -126,7 +126,7 @@ function GetCode($address){
     return $code;
 }
 
-function getDescription($product){
+/* function getDescription($product){                               Function for a column from an old demo table, may need again in future 
     global $conn;
     $sql = "SELECT * FROM `products` WHERE `id`='$product'";
     $result = mysqli_query($conn, $sql);
@@ -135,7 +135,7 @@ function getDescription($product){
         $description = $row['description'];
     }
     return $description;
-}
+} */
 
 function updateInvoiceStatus($code, $status){
     global $conn;

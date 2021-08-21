@@ -256,10 +256,27 @@ button:hover {
 
 .product-hold {
     width: 100%;
-    margin-top: 35px;
+    margin-top: 10px;
 }
 
 .product {
     width: 25%;
+	padding: 10px;
     float: left;
+	margin: 10px;
+	border: 1px solid green;
 }
+
+.payment-box {
+	margin: auto;
+	width: 50%;
+	border: 3px solid green;
+	padding: 10px;
+	border: 1px solid #e6e6e6;
+	text-align: center;
+	-webkit-box-shadow: 0 0 10px #e6e6e6;
+	box-shadow: 0 0 10px #e6e6e6;
+	
+}
+
+
