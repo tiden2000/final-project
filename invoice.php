@@ -95,6 +95,25 @@ if($status == 0){
             <div id="info"></div>
             <h3>What you're paying for:</h3>
             <h4><?php echo getProduct($product); ?></h4>
+            
+            <?php
+                if(array_key_exists('button-exit', $_POST)) {       // Delete invoice and return to homepage when user click cancel button
+                    button_exit();
+                }
+                function button_exit() {
+                    global $conn;
+                    $sql = "DELETE FROM `invoices` ORDER BY `id` desc limit 1";
+                    $result = mysqli_query($conn, $sql);
+                    $sql = "ALTER TABLE `invoices` AUTO_INCREMENT = 1";
+                    $result = mysqli_query($conn, $sql);
+                    header("location: index.php");
+                    exit();
+                }
+            ?>
+            <form method="post">
+                <input type="submit" name="button-exit"
+                        class="button" value="Cancel Invoice And Return To Homepage" />
+            </form>
         </div>
 
         
