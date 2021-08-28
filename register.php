@@ -67,21 +67,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err) && empty($confirm_password_err)){
         
         // Prepare an insert statement
-        $sql = "INSERT INTO users (username, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (username, password, type) VALUES (?, ?, ?)";
          
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_username, $param_password);
+            mysqli_stmt_bind_param($stmt, "sss", $param_username, $param_password, $param_type);
             
             // Set parameters
             $param_username = $username;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_type = $_POST['type'];
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
+
+                // Create a folder for seller based on id if the newly created account is a seller account
+                if($param_type == "Seller") {
+                    $sql = "SELECT MAX(id) FROM users";
+                    $result = mysqli_query($conn, $sql);
+                    while($row = mysqli_fetch_assoc($result)){
+                        $id = $row['MAX(id)'];
+                    }
+                    // Create folder according to student's id
+                    $currentDirectory = getcwd();
+                    $path = "users/sellers/" . $id;
+                    if (!file_exists($path)) {
+                        mkdir($path, 0777, true);
+                    }
+                }
+                
                 // Redirect to login page
                 header("location: login.php");
-            } else{
+            }
+            else{
                 echo "Oops! Something went wrong. Please try again later.";
             }
 
@@ -116,20 +134,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>    
+            
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
+
             <div class="form-group">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
+
+            <label>Account Type</label><br>
+            <input type="radio" id="admin" name="type" value="Admin">
+            <label for="admin">Admin</label><br>
+            <input type="radio" id="seller" name="type" value="Seller">
+            <label for="seller">Seller</label><br>
+            <input type="radio" id="user" name="type" value="User">
+            <label for="user">User</label>
+
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
                 <input type="reset" class="btn btn-secondary ml-2" value="Reset">
             </div>
+            
             <p>Already have an account? <a href="login.php">Login here</a>.</p>
         </form>
     </div>    

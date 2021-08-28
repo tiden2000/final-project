@@ -25,5 +25,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
     </p>
+
+    <p><?php echo $_SESSION["id"];?></p>
+    <p><?php echo $_SESSION["username"];?></p>
+    <p><?php echo $_SESSION["type"];?></p>
 </body>
 </html>

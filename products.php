@@ -36,10 +36,10 @@ include_once "functions.php";
                 <div class="product">
                         <div class="card" style="width: 95%;margin:0 auto;">
                             <div class="card-body">
-                                <img src="<?php echo $row['img-link']; ?>" alt="" style="width 200px; height:200px;">
+                                <img src="<?php echo $row['img_link']; ?>" alt="" style="width 200px; height:200px;">
                                 <h5 class="card-title"><?php echo $row['name']; ?></h5>
-                                <h6 class="card-subtitle mb-2 text-muted">$<?php echo $row['location']; ?></h6>
-                                <p class="card-text"><?php echo $row['price'] ?> $</p>
+                                <h6 class="card-subtitle mb-2 text-muted"><?php echo $row['location']; ?></h6>
+                                <p class="card-text">$<?php echo $row['price'] ?></p>
                                 <a href="buy.php?id=<?php echo $row['id']; ?>" class="card-link">Buy now</a>
                             </div>
                         </div>
