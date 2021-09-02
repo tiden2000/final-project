@@ -52,7 +52,7 @@ if($value >= round($price)){
         // Correct amount paid and fully confirmed
         // Do whatever you want here once payment is correct
         $invoice = getInvoice($addr);
-        createOrder($invoice, getInvoiceIp($addr));
+        createOrder($invoice, getInvoiceIp($addr), $_SESSION["id"]);
     }
 }else {
     // Buyer hasnt paid enough

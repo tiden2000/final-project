@@ -1,3 +1,12 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  $name = $_SESSION['username'];
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,11 +43,17 @@
       </div>
 
       <div class="col-1">
-        <a href="register.php">Register</a>
+        <?php
+        if(isset($_SESSION['username'])) {echo "<a href='" . "seller.php" . "'>" . $_SESSION['username'] . "</a>";}
+        else {echo "<a href='" . "register.php" . "'>" . "Register" . "</a>";}
+        ?>
       </div>
 
       <div class="col-1">
-        <a href="login.php">Login</a>
+        <?php
+        if(isset($_SESSION['username'])) {echo "<a href='" . "logout.php" . "'>" . "Logout" . "</a>";}
+        else {echo "<a href='" . "login.php" . "'>" . "Login" . "</a>";}
+        ?>
       </div>
     </div>
 
@@ -65,7 +80,7 @@
                 <li><a href='http://'>Services Sub Menu 3</a></li>
               </ul>
             </li>
-            <li><a href='/about.html'>ABOUT</a></li>
+            <li><a href='/about.php'>ABOUT</a></li>
             <li><a href='http://'>CONTACT</a></li>
           </ul>
         </nav>

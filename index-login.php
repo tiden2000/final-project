@@ -44,7 +44,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
       </div>
 
       <div class="col-1">
-        <a href=""><?php echo $_SESSION["username"]?></a>
+        <a href="seller.php"><?php echo $_SESSION["username"]?></a>
       </div>
 
       <div class="col-1">

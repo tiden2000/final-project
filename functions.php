@@ -184,10 +184,10 @@ function getIp(){
     return $ip;
 }
 
-function createOrder($invoice, $ip){
+function createOrder($invoice, $ip, $user_id){
     global $conn;
     
-    $sql = "INSERT INTO `orders` (`invoice`, `ip`) VALUES ('$invoice', '$ip')";
+    $sql = "INSERT INTO `orders` (`invoice`, `ip`, `user_id`) VALUES ('$invoice', '$ip', '$user_id')";
     mysqli_query($conn, $sql);
 }
 

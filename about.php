@@ -1,3 +1,12 @@
+<?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+  $name = $_SESSION['username'];
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,11 +40,17 @@
         </div>
   
         <div class="col-1">
-          <a href="register.php">Register</a>
+          <?php
+          if(isset($_SESSION['username'])) {echo "<a href='" . "seller.php" . "'>" . $_SESSION['username'] . "</a>";}
+          else {echo "<a href='" . "register.php" . "'>" . "Register" . "</a>";}
+          ?>
         </div>
   
         <div class="col-1">
-          <a href="login.php">Login</a>
+          <?php
+          if(isset($_SESSION['username'])) {echo "<a href='" . "logout.php" . "'>" . "Logout" . "</a>";}
+          else {echo "<a href='" . "login.php" . "'>" . "Login" . "</a>";}
+          ?>
         </div>
       </div>
   
@@ -55,7 +70,7 @@
                   <li><a href='http://'>Commercial</a></li>
                 </ul>
               </li>
-              <li><a class='dropdown-arrow' href='http://'>PROPERTIES</a>
+              <li><a class='dropdown-arrow' href='/products.php'>PROPERTIES</a>
                 <ul class='sub-menus'>
                   <li><a href='http://'>Services Sub Menu 1</a></li>
                   <li><a href='http://'>Services Sub Menu 2</a></li>

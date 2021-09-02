@@ -1,4 +1,12 @@
 <?php
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
 /*
 Payment page
 
@@ -51,8 +59,9 @@ include_once "functions.php";
         <div class="row">
             <h1 style="width:100%;">Previous purchases</h1>
             <?php
+            $user_id = $_SESSION['id'];
             $ip = getIp();
-            $sql = "SELECT * FROM `orders` WHERE `ip`='$ip' ORDER BY `id` DESC";
+            $sql = "SELECT * FROM `orders` WHERE `user_id`='$user_id' ORDER BY `id` DESC";
             $result = mysqli_query($conn, $sql);
             // Check number of orders
             if(mysqli_num_rows($result)==0){

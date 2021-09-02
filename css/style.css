@@ -260,11 +260,74 @@ button:hover {
 }
 
 .product {
-    width: 25%;
+	float: left;
+    width: 600px;
 	padding: 10px;
-    float: left;
+	margin-bottom: 35px;
+}
+
+.product img {
+	width: 500px;
+	height: 300px;
+	transition: transform .8s; /* Animation */
+}
+
+.product img:hover {
+	transform: scale(1.05);
+}
+
+.product h5 {
 	margin: 10px;
-	border: 1px solid green;
+	margin-top: 20px;
+}
+
+.product h6 {
+	float: right;
+	margin: 10px;
+	margin-top: -30px;
+	margin-right: 100px;
+	color: #a6a6a6;
+}
+
+.product p {
+	margin: 10px;
+}
+
+.product a {
+	font-size: 20px;
+	white-space:pre;
+}
+
+.product .details {
+	text-align: left;
+	width: 500px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	background-color: #d9d9d9;
+	color: black; 
+	border: 2px solid #d9d9d9;
+	margin-top: 20px;
+}
+
+.product .details:hover {
+	background-color: white;
+	color: black;
+}
+
+.product .buy {
+	text-align: left;
+	width: 500px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+	background-color: #4CAF50;
+	color: white; 
+	border: 2px solid #4CAF50;
+	margin-top: 20px;
+}
+
+.product .buy:hover {
+	background-color: white;
+	color: #4CAF50;
 }
 
 .payment-box {
@@ -276,7 +339,6 @@ button:hover {
 	text-align: center;
 	-webkit-box-shadow: 0 0 10px #e6e6e6;
 	box-shadow: 0 0 10px #e6e6e6;
-	
 }
 
 

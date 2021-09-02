@@ -11,8 +11,9 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 
 require_once "config.php";
 $id = $_SESSION["id"];
+$seller = $_SESSION["username"];
 
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if(isset($_POST['btn_add'])) {
 
     // Upload image to a seller folder based on their id
     $currentDirectory = getcwd();
@@ -58,11 +59,60 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $location = $_POST["location"];
     $price = $_POST["price"];
+    $country = $_POST["country_list"];
+    $type = $_POST["type"];
     $img = "users/sellers/" . $id . "/" . $fileName;  // Link to the image added by seller
     global $conn;
-    $sql = "INSERT INTO products (name, location, price, img_link)
-    VALUES ('$name', '$location', $price, '$img')";
+    $sql = "INSERT INTO products (name, location, price, img_link, seller, country, type)
+    VALUES ('$name', '$location', $price, '$img', '$seller', '$country', '$type')";
     mysqli_query($conn, $sql);
+
+    header("location: seller.php");
+}
+
+if(isset($_POST['btn_display'])) {
+    $selected = "";
+    if(!empty($_POST['product_list'])) {
+        $selected = $_POST['product_list'];
+    }
+    else {
+        echo 'Please select an existing product.';
+    }
+    global $conn;
+    $sql = "SELECT * FROM products WHERE name = '$selected'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    echo "<br>";
+    $_SESSION['name'] = $row['name'];
+    $_SESSION['location'] = $row['location'];
+    $_SESSION['price'] = $row['price'];
+    $_SESSION['img_link'] = $row['img_link'];
+    $_SESSION['country'] = $row['country'];
+    $_SESSION['type'] = $row['type'];
+}
+
+if(isset($_POST['btn_update'])) {
+    $name_old = $_SESSION['name'];
+    $name = $_POST['up_name'];
+    $location = $_POST['up_location'];
+    $price = $_POST['up_price'];
+    $country = $_POST['country_list_update'];
+    $type = $_POST['up_type'];
+    global $conn;
+    $sql = "UPDATE products SET name='$name', location='$location', price='$price', country='$country', type='$type' WHERE name='$name_old'";
+    $result=mysqli_query($conn,$sql);
+    header("location: seller.php");
+}
+
+if(isset($_POST['btn_delete'])) {
+    $path = $_SESSION['img_link'];
+    if(file_exists($path)) {
+        unlink($path);
+    }
+    $name_old = $_SESSION['name'];
+    global $conn;
+    $sql = "DELETE FROM products WHERE name='$name_old'";
+    $result=mysqli_query($conn,$sql);
     echo $sql;
 }
 
@@ -82,7 +132,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="wrapper">
         <h2>Submit product</h2>
         <p>Please fill this form to submit a product.</p>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
+
+        <!--************* 
+            *************
+            *************
+            Product Add Form
+            *************
+            *************
+            *************-->
+        <form action="" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Product Name</label>
                 <input type="text" name="name" class="form-control" value="">
@@ -95,8 +153,33 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="form-group">
                 <label>Price</label>
-                <input type="number" name="price" class="form-control" value="">
+                <input type="number" name="price" class="form-control" value="" step="any">
             </div>
+
+            <!-- Country drop down menu -->
+            <select name= "country_list" id= "country_list_id" class="form-control" required>
+                <?php
+                    $sql = "SELECT * FROM country";
+                    $result=mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($result)) {
+                        echo "<option value='" . $row['nicename'] . "'>" . $row['nicename'] . "</option>";
+                    }
+                ?>
+            </select>
+
+            <!-- Radio button options to choose product type-->
+            <label>Product Type</label><br>
+            <input type="radio" id="house" name="type" value="House">
+            <label for="house">House</label><br>
+            <input type="radio" id="apartment" name="type" value="Apartment">
+            <label for="apartment">Apartment</label><br>
+            <input type="radio" id="penthouse" name="type" value="Penthouse">
+            <label for="penthouse">Penthouse</label>
+            <input type="radio" id="commercial" name="type" value="Commercial">
+            <label for="commercial">Commercial</label>
+            <input type="radio" id="office" name="type" value="Office">
+            <label for="office">Office</label>
+            <br>
 
             <div>
                 Upload a File:
@@ -104,9 +187,96 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
+                <input name="btn_add" type="submit" class="btn btn-primary" value="Submit Product">
             </div>
         </form>
+
+        <!-- Product drop down menu -->
+        <form action="" method="post" enctype="multipart/form-data">
+            <select name= "product_list" id= "product_list_id" class="form-control" required>
+                <?php
+                    $username = $_SESSION["username"];
+                    $sql = "SELECT * FROM products WHERE seller = '$username'";
+                    $result=mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($result)) {
+                        echo "<option value='" . $row['name'] . "'>" . $row['name'] . "</option>"; 
+                    }
+                ?>
+            </select>
+            <input name="btn_display" type="submit" class="btn btn-primary" value="Open Product">
+        </form>
+
+
+
+
+
+
+
+
+
+
+
+        <!--************* 
+            *************
+            *************
+            Product Update Form
+            *************
+            *************
+            *************-->
+        <form action="" method="post">
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="up_name" class="form-control" value="<?php if(isset($_SESSION['name'])){echo $_SESSION['name'];}?>">
+            </div>    
+            
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" name="up_location" class="form-control" value="<?php if(isset($_SESSION['location'])){echo $_SESSION['location'];}?>">
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" name="up_price" class="form-control" value="<?php if(isset($_SESSION['price'])){echo $_SESSION['price'];}?>" step="any">
+            </div>
+
+            <select name= "country_list_update" id= "country_list_update_id" class="form-control" required>
+                <?php
+                    $sql = "SELECT * FROM country";
+                    $result=mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($result)) {
+                        if($_SESSION['country'] == $row['nicename']) {
+                            echo "<option value='" . $row['nicename'] . "' selected>" . $row['nicename'] . "</option>";
+                        }
+                        else {
+                            echo "<option value='" . $row['nicename'] . "'>" . $row['nicename'] . "</option>";
+                        }
+                    }
+                ?>
+            </select>
+
+            <!-- Radio button options to choose product type-->
+            <label>Product Type</label><br>
+            <input type="radio" id="up_house" name="up_type" value="House">
+            <label for="up_house">House</label><br>
+            <input type="radio" id="up_apartment" name="up_type" value="Apartment">
+            <label for="up_apartment">Apartment</label><br>
+            <input type="radio" id="up_penthouse" name="up_type" value="Penthouse">
+            <label for="up_penthouse">Penthouse</label>
+            <input type="radio" id="up_commercial" name="up_type" value="Commercial">
+            <label for="up_commercial">Commercial</label>
+            <input type="radio" id="up_office" name="up_type" value="Office"<?php if($_SESSION['type'] == "Office") {echo "checked";}?>>
+            <label for="up_office">Office</label>
+            <br>
+
+            <div class="form-group">
+                <input name="btn_update" type="submit" class="btn btn-primary" value="Update Product">
+            </div>
+
+            <div class="form-group">
+                <input name="btn_delete" type="submit" class="btn btn-primary" value="Delete Product">
+            </div>
+        </form>
+        
         <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
     </div>    
 </body>
