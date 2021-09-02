@@ -1,5 +1,18 @@
 <?php
 
+/*
+*Php code in this page let seller add or update a product and display data from database
+
+*Adding product: Data is taken from user input in the html input form and pasted into sql string
+
+*Updating product: Seller select a product from drop down menu then press the button -->
+sql string is executed based on product name and display other data of that product into another html form for product update -->
+seller modify data and press update button to update the database
+
+*Note: $POST variables are variables that store user input data taken from input forms. $SESSION variables are used to store data taken from database
+to be pasted into input form. Genrally, $SESSION variables are used to transfer data between php scripts in the same files.
+*/
+
 // Initialize the session
 session_start();
  
@@ -12,6 +25,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 $id = $_SESSION["id"];
 $seller = $_SESSION["username"];
+
+// Code for adding product
 
 if(isset($_POST['btn_add'])) {
 
@@ -70,7 +85,9 @@ if(isset($_POST['btn_add'])) {
     header("location: seller.php");
 }
 
-if(isset($_POST['btn_display'])) {
+// Code for updating product
+
+if(isset($_POST['btn_display'])) {  // Display product information in the input bar
     $selected = "";
     if(!empty($_POST['product_list'])) {
         $selected = $_POST['product_list'];
@@ -91,7 +108,7 @@ if(isset($_POST['btn_display'])) {
     $_SESSION['type'] = $row['type'];
 }
 
-if(isset($_POST['btn_update'])) {
+if(isset($_POST['btn_update'])) {  // Update product using data in the input bar
     $name_old = $_SESSION['name'];
     $name = $_POST['up_name'];
     $location = $_POST['up_location'];
@@ -104,7 +121,7 @@ if(isset($_POST['btn_update'])) {
     header("location: seller.php");
 }
 
-if(isset($_POST['btn_delete'])) {
+if(isset($_POST['btn_delete'])) {  // Delete product
     $path = $_SESSION['img_link'];
     if(file_exists($path)) {
         unlink($path);
@@ -239,13 +256,14 @@ if(isset($_POST['btn_delete'])) {
                 <input type="number" name="up_price" class="form-control" value="<?php if(isset($_SESSION['price'])){echo $_SESSION['price'];}?>" step="any">
             </div>
 
+            <!-- Country drop down menu -->
             <select name= "country_list_update" id= "country_list_update_id" class="form-control" required>
                 <?php
                     $sql = "SELECT * FROM country";
                     $result=mysqli_query($conn,$sql);
                     while($row=mysqli_fetch_array($result)) {
                         if($_SESSION['country'] == $row['nicename']) {
-                            echo "<option value='" . $row['nicename'] . "' selected>" . $row['nicename'] . "</option>";
+                            echo "<option value='" . $row['nicename'] . "' selected>" . $row['nicename'] . "</option>"; // Display country data of a product and give it default selection in the drop down 
                         }
                         else {
                             echo "<option value='" . $row['nicename'] . "'>" . $row['nicename'] . "</option>";

@@ -147,6 +147,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
 
+            <!-- Radio buttons for user roles -->
             <label>Account Type</label><br>
             <input type="radio" id="admin" name="type" value="Admin">
             <label for="admin">Admin</label><br>

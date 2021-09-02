@@ -1,5 +1,16 @@
 <?php
 
+/*
+*Php code in this page let admin update a product or update an account
+
+*Updating product: Similar code in seller.php
+
+*Updating account: Work similarly to product update functions
+
+*Note: $POST variables are variables that store user input data taken from input forms. $SESSION variables are used to store data taken from database
+to be pasted into input form. Genrally, $SESSION variables are used to transfer data between php scripts in the same files.
+*/
+
 // Initialize the session
 session_start();
  
@@ -25,7 +36,7 @@ if(isset($_POST['btn_display_seller'])) {
     }
 }
 
-if(isset($_POST['btn_display_product'])) {
+if(isset($_POST['btn_display_product'])) {  // Display product information in the input bar
     $selected = "";
     if(!empty($_POST['product_list'])) {
         $selected = $_POST['product_list'];
