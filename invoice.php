@@ -20,6 +20,15 @@ $product = getInvoiceProduct($code);
 
 $status = getStatus($code);
 
+// Give correct user_id to the recently added order. Required invoice.php to be refreshed and updated to 'paid' status
+// Due to unsolved troubles with session data in call back file 'index.php' this will be the workaround
+if($status == 2) {
+    $id = $_SESSION["id"];
+    global $conn;
+    $sql = "UPDATE orders SET user_id = $id ORDER BY `id` desc limit 1";
+    mysqli_query($conn, $sql);
+}
+
 $price = getInvoicePrice($code);
 
 // Status translation
@@ -111,8 +120,7 @@ if($status == 0){
                 }
             ?>
             <form method="post">
-                <input type="submit" name="button-exit"
-                        class="button" value="Cancel Invoice And Return To Homepage" />
+                <input type="submit" name="button-exit" class="button" value="Cancel Invoice And Return To Homepage"/>
             </form>
         </div>
 
@@ -131,8 +139,9 @@ if($status == 0){
                 console.log(event.data);
                 response = JSON.parse(event.data);
                 //Refresh page if payment moved up one status
-                if (response.status > status)
-                  setTimeout(function(){ window.location=window.location }, 1000);
+                if (response.status > status) {
+                    setTimeout(function(){ window.location=window.location }, 1000);
+                }
             }
         }
         

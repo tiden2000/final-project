@@ -1,4 +1,5 @@
 <?php
+session_start();
 /*
 Callback location, set this in blockonmics merchant page
 
@@ -7,6 +8,7 @@ localhost/bitcoin/check?secret=asecretcode&addr=[ADDRESS]&status=[STATUS CODE]&t
 */
 include_once "../config.php";
 include_once "../functions.php";
+
 
 $secretlocal = "chienbot123"; // Code in the callback, make sure this matches to what youve set
 

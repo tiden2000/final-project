@@ -7,6 +7,7 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
   $name = $_SESSION['username'];
 }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,65 +30,11 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 </head>
 
-<body style="background-color:#f8f3f3;" class="container-fullwidth">
+<body style="background-color:white;" class="container-fluid">
 
-  <div>
+    <?php include "header.php"; ?>
 
-    <div class="row" id='top-menu'>
-      <div class="col">
-        <a href="tel:123-456-7890">123-456-7890</a>
-      </div>
-
-      <div class="col">       
-        <a href="mailto:company@mail.com">company@mail.com</a>
-      </div>
-
-      <div class="col-1">
-        <?php
-        if(isset($_SESSION['username'])) {echo "<a href='" . "seller.php" . "'>" . $_SESSION['username'] . "</a>";}
-        else {echo "<a href='" . "register.php" . "'>" . "Register" . "</a>";}
-        ?>
-      </div>
-
-      <div class="col-1">
-        <?php
-        if(isset($_SESSION['username'])) {echo "<a href='" . "logout.php" . "'>" . "Logout" . "</a>";}
-        else {echo "<a href='" . "login.php" . "'>" . "Login" . "</a>";}
-        ?>
-      </div>
-    </div>
-
-
-    <div class="row">
-      <div id='navbar'>
-        <a href="index.php"><img src="img/logo.png" alt="logo" id='logo'></a>
-        <nav id='menu'>
-          <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
-          <ul>
-            <li><a href='/index.php'>HOME</a></li>
-            <li><a class='dropdown-arrow' href='http://'>LISTINGS</a>
-              <ul class='sub-menus'>
-                <li><a href='http://'>House</a></li>
-                <li><a href='http://'>Apartment</a></li>
-                <li><a href='http://'>Penthouse</a></li>
-                <li><a href='http://'>Commercial</a></li>
-              </ul>
-            </li>
-            <li><a class='dropdown-arrow' href='/products.php'>PROPERTIES</a>
-              <ul class='sub-menus'>
-                <li><a href='http://'>Services Sub Menu 1</a></li>
-                <li><a href='http://'>Services Sub Menu 2</a></li>
-                <li><a href='http://'>Services Sub Menu 3</a></li>
-              </ul>
-            </li>
-            <li><a href='/about.php'>ABOUT</a></li>
-            <li><a href='http://'>CONTACT</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-
-    <div id='explore'>
+    <div class='carousel'>
       <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -127,54 +74,53 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     <div class="row">
       <div class="col">
         <div class="zoom">
-          <img src="img/brand1.jpg" alt="brand1" id='brand'>
+          <img src="img/brand1.jpg" alt="brand1" id='brand' style="-webkit-animation: fadein 0.5s; animation: fadein 0.5s;">
         </div>
       </div>
 
       <div class="col">
         <div class="zoom">
-          <img src="img/brand2.jpg" alt="brand2" id='brand'>
+          <img src="img/brand2.jpg" alt="brand2" id='brand' style="-webkit-animation: fadein 1s; animation: fadein 1s;">
         </div>
       </div>
 
       <div class="col">
         <div class="zoom">
-          <img src="img/brand3.jpg" alt="brand3" id='brand'>
+          <img src="img/brand3.jpg" alt="brand3" id='brand' style="-webkit-animation: fadein 1.5s; animation: fadein 1.5s;">
         </div>
       </div>
 
       <div class="col">
         <div class="zoom">
-          <img src="img/brand4.jpg" alt="brand4" id='brand'>
+          <img src="img/brand4.jpg" alt="brand4" id='brand' style="-webkit-animation: fadein 2s; animation: fadein 2s;">
         </div>
       </div>
 
       <div class="col">
         <div class="zoom">
-          <img src="img/brand5.jpg" alt="brand5" id='brand'>
+          <img src="img/brand5.jpg" alt="brand5" id='brand' style="-webkit-animation: fadein 2.5s; animation: fadein 2.5s;">
         </div>
       </div>
 
       <div class="col">
         <div class="zoom">
-          <img src="img/brand6.jpg" alt="brand6" id='brand'>
+          <img src="img/brand6.jpg" alt="brand6" id='brand' style="-webkit-animation: fadein 3s; animation: fadein 3s;">
         </div>
       </div>
     </div>
-
 
     <div id='explore'>
       <div class="row">
         <div class="col">
           <div class="zoom2">
-            <img src="img/house.jpeg" alt="house" style="width: 700px; height:400px;">
+            <img src="img/house.jpeg" alt="house" style="width: 650px; height:400px;">
             <div class="centered">House</div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
-            <img src="img/apartment.jpg" alt="apartment" style="width: 600px; height:400px;">
+            <img src="img/apartment.jpg" alt="apartment" style="width: 625px; height:400px;">
             <div class="centered">Apartment</div>
           </div>
         </div>
@@ -183,21 +129,21 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
       <div class="row">
         <div class="col">
           <div class="zoom2">
-            <img src="img/penthouse.jpg" alt="penthouse" style="width: 400px; height:400px;">
+            <img src="img/penthouse.jpg" alt="penthouse" style="width: 350px; height:400px;">
             <div class="centered">Penthouse</div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
-            <img src="img/commercial.jpg" alt="commercial" style="width: 400px; height:400px;">
+            <img src="img/commercial.jpg" alt="commercial" style="width: 350px; height:400px;">
             <div class="centered">Commercial</div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
-            <img src="img/office.jpg" alt="office" style="width: 400px; height:400px;">
+            <img src="img/office.jpg" alt="office" style="width: 500px; height:400px;">
             <div class="centered">Office</div>
           </div>
         </div>
@@ -238,137 +184,12 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
           </div>
         </div>
       </div>
-      <img src="img/buildings.png" alt="buildings" class="bottom-right">
+      
     </div>
-  </div>
+    <img src="img/buildings.png" alt="buildings" class="bottom-right">
+
 </body>
 
-<!-- Footer -->
-<footer class="text-center text-lg-start bg-light text-muted">
-  <!-- Section: Social media -->
-  <section
-    class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom"
-    style="margin-left: 600px;"
-  >
-    <!-- Left -->
-    <div class="me-5 d-none d-lg-block">
-      <span>Get connected with us on social networks:</span>
-    </div>
-    <!-- Left -->
-
-    <!-- Right -->
-    <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-linkedin"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <!-- Right -->
-  </section>
-  <!-- Section: Social media -->
-
-  <!-- Section: Links  -->
-  <section class="">
-    <div class="container text-center text-md-start mt-5">
-      <!-- Grid row -->
-      <div class="row mt-3">
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-          <!-- Content -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem me-3"></i>Company name
-          </h6>
-          <p>
-            Here you can use rows and columns to organize your footer content. Lorem ipsum
-            dolor sit amet, consectetur adipisicing elit.
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Products
-          </h6>
-          <p>
-            <a href="#!" class="text-reset">Angular</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">React</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Vue</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Laravel</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Useful links
-          </h6>
-          <p>
-            <a href="#!" class="text-reset">Pricing</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Settings</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Orders</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Help</a>
-          </p>
-        </div>
-        <!-- Grid column -->
-
-        <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Contact
-          </h6>
-          <p><i class="fas fa-home me-3"></i> New York, NY 10012, US</p>
-          <p>
-            <i class="fas fa-envelope me-3"></i>
-            info@example.com
-          </p>
-          <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
-          <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
-        </div>
-        <!-- Grid column -->
-      </div>
-      <!-- Grid row -->
-    </div>
-  </section>
-  <!-- Section: Links  -->
-
-  <!-- Copyright -->
-  <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-    © 2021 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-  </div>
-  <!-- Copyright -->
-</footer>
-<!-- Footer -->
-
+<div style="height:100px;"></div>
+<?php include "footer.php"; ?>
 </html>

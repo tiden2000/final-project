@@ -1,5 +1,4 @@
-
-
+/* Header and navigation bar */
 #top-menu {
 	background: white;
 	height: 50px;
@@ -123,10 +122,19 @@
 	#menu input:checked ~ ul {display:block}
 }
 
+/* Carousel */
+.carousel {
+	width:101.8%;
+	margin-left:-19.5px;
+	-webkit-animation: fadein 2s;
+	animation: fadein 2s;
+}
+
 .carousel-inner img {
 	height: 700px;
 }
 
+/* Image zooming animation */
 .zoom {
 	padding-top: 30px;
 	transition: transform .8s; /* Animation */
@@ -139,12 +147,14 @@
 	transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
+/* Popular brand (under carousel) */
 #brand {
 	width: 130px;
 	height: 70px;
 	text-align: center;
 }
 
+/* Property types */
 #explore {
 	background-color: white;
 	padding: 50px;
@@ -164,6 +174,7 @@
 	transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
+/* Property types images */
 .centered {
 	position: absolute;
 	top: 50%;
@@ -186,14 +197,17 @@
 
 .centered:hover {
 	background-position: 0 100%;
+	cursor: pointer;
 }
 
+/* Services */
 #service {
 	background-color:#3dd978;
 	padding: 70px;
 	color: white;
 }
 
+/* About us block (under services) */
 #about-box {
 	display: inline-block;
 	background-color: white;
@@ -231,9 +245,8 @@ button:hover {
 
 .bottom-right {
 	float: right;
-	margin-top: -330px;
-	margin-right: -123px;
 	opacity: 0.1;
+	margin-top: -400px;
 	width: 700px;
 	height: 500px;
   }
@@ -254,6 +267,22 @@ button:hover {
 	box-shadow: 0 0 11px rgba(33,33,33,.2); 
 }
 
+/* For products.php */
+
+/* Search bar */
+.search {
+	width: 1250px;
+	background-color: white;
+	z-index:1;
+	position:relative;
+	padding: 50px;
+	margin-left: 125px;
+	margin-top: -80px;
+	margin-bottom: 60px;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+/* Product card */
 .product-hold {
     width: 100%;
     margin-top: 10px;
@@ -264,8 +293,22 @@ button:hover {
     width: 600px;
 	padding: 10px;
 	margin-bottom: 35px;
+	-webkit-animation: fadein 2s;
+	animation: fadein 2s;
 }
 
+/* Fade-in appear animation */
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Elements in a product card */
 .product img {
 	width: 500px;
 	height: 300px;
@@ -298,6 +341,7 @@ button:hover {
 	white-space:pre;
 }
 
+/* 'Details' button for product card */
 .product .details {
 	text-align: left;
 	width: 500px;
@@ -314,6 +358,7 @@ button:hover {
 	color: black;
 }
 
+/* 'Buy' button for product card */
 .product .buy {
 	text-align: left;
 	width: 500px;
@@ -330,6 +375,66 @@ button:hover {
 	color: #4CAF50;
 }
 
+/* Details page of a product */
+.details_page {
+	margin-left:200px;
+	margin-bottom:200px;
+	width:800px;
+	-webkit-animation: fadein 2s;
+	animation: fadein 2s;
+}
+
+.details_page .interior_icons {
+	width: 20px;
+	height: 20px;
+	margin-right: 20px;
+}
+
+.details_page .interior {
+	float: left;
+	margin-left: 130px;
+	font-size: 18px;
+	color:green;
+	margin-top: 30px;
+	font-weight: bold;
+}
+
+
+/* For Google Map */
+#map {
+	margin-top: 50px;
+	height: 400px;
+	width: 100%;
+}
+
+/* Page button to switch between next and previous page in property list */
+.page-button {
+	width: 100%;
+	padding-left: 545px;
+}
+
+.page-button a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 8px 16px;
+	color: black;
+}
+
+.page-button a:hover {
+	text-decoration: none;
+	background-color: #ddd;
+	color: black;
+}
+
+.page-button li {
+	margin: 10px;
+	margin-top: 50px;
+	margin-bottom: 100px;
+	background-color: #d9d9d9;
+	color: black;
+}
+
+/* For invoice.php */
 .payment-box {
 	margin: auto;
 	width: 50%;
@@ -341,4 +446,7 @@ button:hover {
 	box-shadow: 0 0 10px #e6e6e6;
 }
 
-
+.icons {
+	margin: 10px;
+	padding-left: 700px;
+}

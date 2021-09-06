@@ -2,7 +2,6 @@
 /*
 This page defines a number of functions to make the code on other pages more readable
 */
-
 include_once "config.php";
 
 function generateRandomString($length = 10) {
@@ -126,7 +125,7 @@ function GetCode($address){
     return $code;
 }
 
-/* function getDescription($product){                               Function for a column from an old demo table, may need again in future 
+/* function getDescription($product){                               Function for a column from an old demo table, may need again in the future 
     global $conn;
     $sql = "SELECT * FROM `products` WHERE `id`='$product'";
     $result = mysqli_query($conn, $sql);
@@ -186,7 +185,6 @@ function getIp(){
 
 function createOrder($invoice, $ip, $user_id){
     global $conn;
-    
     $sql = "INSERT INTO `orders` (`invoice`, `ip`, `user_id`) VALUES ('$invoice', '$ip', '$user_id')";
     mysqli_query($conn, $sql);
 }
