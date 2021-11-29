@@ -434,6 +434,87 @@ button:hover {
 	color: black;
 }
 
+/* For listing pages */
+
+.listing-introduction {
+	padding-bottom: 50px;
+	width: 98%;
+	margin-left: 15px;
+	margin-top:100px;
+	margin-bottom:100px;
+	border-bottom: 1px solid gray;
+	border-radius: 15px; -webkit-animation: fadein 2s;
+	animation: fadein 2s;
+}
+
+.image img {
+	max-width:100%;
+	height:auto;
+	-webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+	clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+
+.image {
+	position: relative;
+	width: 100%;
+}
+
+.image img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.overlay {
+	position: absolute;
+	bottom: 100%;
+	left: 0;
+	right: 0;
+	background-color: #3dd978;
+	overflow: hidden;
+	width: 100%;
+	height:0;
+	transition: .5s ease;
+	opacity: 0.9;
+	-webkit-clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+	clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+}
+
+.image:hover .overlay {
+	bottom: 0;
+  	height: 100%;
+}
+
+.text {
+	color: white;
+	font-size: 40px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	text-align: center;
+}
+
+.listing {
+	font-size: 20px;
+	font-weight: 500;
+	letter-spacing: 3px;
+}
+
+.listing p {
+	background-image: linear-gradient(to right, rgba(255,255,255,0) 50%, #ddd 50%);
+	background-position: -0% 0;
+	background-size: 200% auto;
+	transition: background-position 0.5s ease-out;
+}
+
+.listing p:hover {
+	background-position: -99.99% 0;
+	cursor: default;
+}
+
 /* For invoice.php */
 .payment-box {
 	margin: auto;
@@ -449,4 +530,109 @@ button:hover {
 .icons {
 	margin: 10px;
 	padding-left: 700px;
+}
+
+/* For user dashboard */
+.tab-buttons {
+	margin-left: 100px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.tab-buttons button {
+	margin-left: -6px;
+	border: none;
+}
+
+.tab-buttons button:focus {
+	background-color: #3dd978;
+	border: none;
+	outline: none;
+}
+
+.tab-buttons button:hover {
+	background-color: gray;
+	border: none;
+}
+
+.tab-buttons .logout:hover {
+	background-color: red;
+	border: none;
+	color: white;
+}
+
+.tab-buttons .logout a {
+	color: black;
+}
+
+.tab-buttons .logout a:hover {
+	text-decoration: none;
+	color: white;
+}
+
+#product_form {
+	width: 700px;
+	margin-left: 50px;
+	margin-bottom: 50px;
+}
+
+#product_form a {
+	width: 250px;
+	margin-left: 1200px;
+}
+
+#account_form {
+	width: 800px;
+	margin-left: 50px;
+	margin-bottom: 50px;
+}
+
+/* For contact page */
+.contact {
+	margin-top: 50px;
+	margin-bottom: 100px;
+	padding: 50px;
+}
+
+.contact-introduction {
+}
+
+.contact-form {
+	padding-left: 25px;
+	width: 800px;
+	border: 1px solid green;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.contact-form input {
+	margin: 20px;
+	margin-top: 10px;
+	height: 45px;
+	width: 300px;
+}
+
+.contact-form textarea {
+	margin: 20px;
+	margin-top: 10px;
+	width: 91%;
+}
+
+.contact-form label {
+	color: green;
+	margin-left: 20px;
+	margin-top: 20px;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.contact-form .contact-submit {
+	padding: 15px;
+	margin-top: 30px;
+	width: 91%;
+	padding-bottom: 40px;
+	background-color: #3dd978;
+	color: black;
+	font-size: 18px;
+	font-weight: 700;
+	border-radius: 7px;
 }

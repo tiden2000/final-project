@@ -52,6 +52,9 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
             <div class="carousel-item">
                 <img class="d-block w-100" src="img/house3.jpg" alt="Third slide">
             </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="img/house4.jpg" alt="Fourth slide">
+            </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -114,14 +117,14 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         <div class="col">
           <div class="zoom2">
             <img src="img/house.jpeg" alt="house" style="width: 650px; height:400px;">
-            <div class="centered">House</div>
+            <div class="centered"><a href="house.php">House</a></div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
             <img src="img/apartment.jpg" alt="apartment" style="width: 625px; height:400px;">
-            <div class="centered">Apartment</div>
+            <div class="centered"><a href="apartment.php">Apartment</a></div>
           </div>
         </div>
       </div>
@@ -130,21 +133,21 @@ if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
         <div class="col">
           <div class="zoom2">
             <img src="img/penthouse.jpg" alt="penthouse" style="width: 350px; height:400px;">
-            <div class="centered">Penthouse</div>
+            <div class="centered"><a href="penthouse.php">Penthouse</a></div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
             <img src="img/commercial.jpg" alt="commercial" style="width: 350px; height:400px;">
-            <div class="centered">Commercial</div>
+            <div class="centered"><a href="commercial.php">Commercial</a></div>
           </div>
         </div>
 
         <div class="col">
           <div class="zoom2">
             <img src="img/office.jpg" alt="office" style="width: 500px; height:400px;">
-            <div class="centered">Office</div>
+            <div class="centered"><a href="office.php">Office</a></div>
           </div>
         </div>
       </div>

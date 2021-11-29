@@ -88,7 +88,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     while($row = mysqli_fetch_assoc($result)){
                         $id = $row['MAX(id)'];
                     }
-                    // Create folder according to student's id
+                    // Create folder according to seller's id
                     $currentDirectory = getcwd();
                     $path = "users/sellers/" . $id;
                     if (!file_exists($path)) {

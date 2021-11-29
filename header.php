@@ -9,7 +9,9 @@
   
         <div class="col-1">
           <?php
-          if(isset($_SESSION['username'])) {echo "<a href='" . "seller.php" . "'>" . $_SESSION['username'] . "</a>";}
+          if(isset($_SESSION['username']) and $_SESSION['type'] == "Seller") {echo "<a href='" . "seller.php" . "'>" . $_SESSION['username'] . "</a>";}
+          else if(isset($_SESSION['username']) and $_SESSION['type'] == "User") {echo "<a href='" . "orders.php" . "'>" . $_SESSION['username'] . "</a>";}
+          else if(isset($_SESSION['username']) and $_SESSION['type'] == "Admin") {echo "<a href='" . "admin.php" . "'>" . $_SESSION['username'] . "</a>";}
           else {echo "<a href='" . "register.php" . "'>" . "Register" . "</a>";}
           ?>
         </div>
@@ -34,12 +36,13 @@
 
               <li><a href='/index.php'>HOME</a></li>
 
-              <li><a class='dropdown-arrow' href='http://'>LISTINGS</a>
+              <li><a class='dropdown-arrow' href='index.php'>LISTINGS</a>
                 <ul class='sub-menus'>
-                  <li><a href='http://'>House</a></li>
-                  <li><a href='http://'>Apartment</a></li>
-                  <li><a href='http://'>Penthouse</a></li>
-                  <li><a href='http://'>Commercial</a></li>
+                  <li><a href='house.php'>House</a></li>
+                  <li><a href='apartment.php'>Apartment</a></li>
+                  <li><a href='penthouse.php'>Penthouse</a></li>
+                  <li><a href='commercial.php'>Commercial</a></li>
+                  <li><a href='office.php'>Office</a></li>
                 </ul>
               </li>
 
@@ -48,7 +51,7 @@
 
               <li><a href='/about.php'>ABOUT</a></li>
 
-              <li><a href='http://'>CONTACT</a></li>
+              <li><a href='/contact.php'>CONTACT</a></li>
 
             </ul>
 

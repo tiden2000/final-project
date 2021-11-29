@@ -1,4 +1,6 @@
 <?php
+// Initialize the session
+session_start();
 /*
 This page takes a product ID and creates a details page for that product, then redirects the user there
 */
@@ -81,7 +83,6 @@ while($row = mysqli_fetch_assoc($result)){
         };
     }
     
-
     function geocodeAddress(geocoder, resultsMap) {  // This function converts location text to coordinate
     const address = document.getElementById("address").value;
     geocoder
@@ -128,12 +129,12 @@ while($row = mysqli_fetch_assoc($result)){
         <p style="line-height: 1.5; width:100%;"><?php echo $POST['description']?></p>
 
         <!-- Buy Button -->
-        <a href="buy.php?id=<?php echo $row['id']; ?>"><button class="buy" style="margin-bottom: 100px; width:100%; margin-top: 50px;">PURCHASE</button></a>
+        <a href="buy.php?id=<?php echo $id ?>"><button class="buy" style="margin-bottom: 100px; width:100%; margin-top: 50px;">PURCHASE</button></a>
 
         <!-- Google Map -->
         <div id="map"></div>
         <script
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCa4I1uWLajFANs4Ii3bKP9kYlUB4X_upw&callback=initMap&libraries=&v=weekly"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCmhw71F5AtKpr4xq8avgECGKPSEGHKbxQ&callback=initMap&libraries=&v=weekly"
             async
         ></script>
 

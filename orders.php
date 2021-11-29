@@ -43,8 +43,8 @@ include_once "functions.php";
 
 <?php include "header.php"; ?>
 <!-- Invoice -->
-    <div class="row">
-        <h1 style="width:100%;">Previous purchases</h1>
+    <div class="row" style="margin-left:100px; margin-bottom:50px;">
+        <h1 style="width:100%;">Previous Purchases</h1>
         <?php
         $user_id = $_SESSION['id'];
         $ip = getIp();
@@ -54,11 +54,11 @@ include_once "functions.php";
         if(mysqli_num_rows($result)==0){
             // No previous orders
             ?>
-            <p>No previous orders. This is figured out using your IP address</p>
+            <p>No previous orders</p>
             <?php
         }else {
             ?>
-            <table class="table table-striped">
+            <table class="table table-striped" style="width:900px;">
                 <thead>
                     <tr>
                         <th scope="col">Product</th>

@@ -6,6 +6,16 @@ This code is designed to be easily understandable at the expense of speed,
 for large productions this can be done with one sql request, instead of several
 
 */
+
+// Initialize the session
+session_start();
+ 
+// Check if the user is logged in, if not then redirect him to login page
+if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
+    header("location: login.php");
+    exit;
+}
+
 include_once "config.php";
 include_once "functions.php";
 // Check code
@@ -19,6 +29,8 @@ $address = getAddress($code);
 $product = getInvoiceProduct($code);
 
 $status = getStatus($code);
+
+$_SESSION['status'] = $status;
 
 // Give correct user_id to the recently added order. Required invoice.php to be refreshed and updated to 'paid' status
 // Due to unsolved troubles with session data in call back file 'index.php' this will be the workaround
@@ -106,8 +118,11 @@ if($status == 0){
             <h4><?php echo getProduct($product); ?></h4>
             
             <?php
-                if(array_key_exists('button-exit', $_POST)) {       // Delete invoice and return to homepage when user click cancel button
+                if(array_key_exists('button-exit', $_POST) and $_SESSION['status'] != 2) {       // Delete invoice and return to homepage when user click cancel button
                     button_exit();
+                }
+                else if(array_key_exists('button-exit', $_POST) and $_SESSION['status'] == 2) {
+                    button_return();
                 }
                 function button_exit() {
                     global $conn;
@@ -118,9 +133,13 @@ if($status == 0){
                     header("location: index.php");
                     exit();
                 }
+
+                function button_return() {
+                    header("location: orders.php");
+                }
             ?>
             <form method="post">
-                <input type="submit" name="button-exit" class="button" value="Cancel Invoice And Return To Homepage"/>
+                <input type="submit" name="button-exit" class="button" value="<?php if($_SESSION['status'] == 2) {echo "Successful Payment, Go To Orders";} else {echo "Cancel Invoice And Return To Homepage";} ?>"/>
             </form>
         </div>
 

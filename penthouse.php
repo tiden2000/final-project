@@ -6,48 +6,10 @@ session_start();
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
   $name = $_SESSION['username'];
 }
-
 include_once "config.php";
 include_once "functions.php";
-
-// Search for product
-if(isset($_POST['btn_search'])) {
-  
-  if(!empty($_POST['country_list'])
-  and !empty($_POST['type_list'])
-  and !empty($_POST['min_price'])
-  and !empty($_POST['max_price']))
-  {
-    $search_sql = "";
-
-    $search_str = $_POST['search_bar'];
-
-    $country = $_POST['country_list'];
-    $any_country;
-    if($country == "Any") {$any_country = true;}
-    else {$any_country = false;}
-
-    $type = $_POST['type_list'];
-    $any_type;
-    if($type == "Any") {$any_type = true;}
-    else {$any_type = false;}
-
-    $min_price = $_POST['min_price'];
-
-    $max_price = $_POST['max_price'];
-
-    $search_sql = "SELECT * FROM `products` WHERE name LIKE '%$search_str%' AND country='$country' AND type='$type' AND price>=$min_price AND price<=$max_price ORDER BY `id` DESC";
-    if($any_country == true) {
-      $search_sql = str_replace("AND country='Any'", "", $search_sql);
-    }
-    if($any_type == true) {
-      $search_sql = str_replace("AND type='Any'", "", $search_sql);
-    }
-
-    $_POST['search_sql'] = $search_sql;
-  }
-}
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,68 +36,26 @@ if(isset($_POST['btn_search'])) {
 
 <?php include "header.php"; ?>
 
-<img src="img/products_img.jpg" alt="" style="margin-left:-20px; width:102.3%; height:500px;">
-<div class="centered" style="margin-top:80px;">Property Catalogue</div>
-
-<!-- Search bar -->
-<div class="search">
-  <div class="container">
-  <form action="" method="post" enctype="multipart/form-data">
-
+<div class="listing-introduction">
     <div class="row">
-
-    <!-- Country Drop-down -->
-      <div class="col">
-        <label for="country_list">Country</label>
-        <select name= "country_list" id= "country_list_id" class="form-control" required>
-          <?php
-              echo "<option value='" . "Any" . "'>" . "Any" . "</option>"; 
-              $sql = "SELECT * FROM country";
-              $result=mysqli_query($conn,$sql);
-              while($row=mysqli_fetch_array($result))
-              echo "<option value='" . $row['nicename'] . "'>" . $row['nicename'] . "</option>"; 
-          ?>
-        </select>
-      </div>
-
-      <!-- Property Type Drop-down -->
-      <div class="col">
-        <label for="type_list">Type</label>
-        <select name= "type_list" id= "type_list_id" class="form-control" required>
-          <?php
-              echo "<option value='" . "Any" . "'>" . "Any" . "</option>";
-              echo "<option value='" . "House" . "'>" . "House" . "</option>";
-              echo "<option value='" . "Apartment" . "'>" . "Apartment" . "</option>";
-              echo "<option value='" . "Penthouse" . "'>" . "Penthouse" . "</option>";
-              echo "<option value='" . "Commercial" . "'>" . "Commercial" . "</option>";
-              echo "<option value='" . "Office" . "'>" . "Office" . "</option>";
-          ?>
-        </select>
-      </div>
-
-      <!-- Name Input -->
-      <div class="col">
-        <label for="search_bar">Name</label><br>
-        <input type="text" name="search_bar" value="" style="margin-top:1px; width:250px; height:35px;">
-      </div>
-
-      <!-- Minimun And Maximum Price Input -->
-      <div class="col">
-        <label for="min_price">Minimum Price: </label>
-        <input type="text" name="min_price" value="1" style="margin-top:3px;">
-
-        <label for="max_price">Maximum Price: </label>
-        <input type="text" name="max_price" value="10000000">
-      </div>
+        <div class="col">
+            <div class="image">
+                <img src="img/penthouse_listing.jpg" alt="" >
+                <div class="overlay">
+                    <div class="text">Penthouses</div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="listing">
+                <p>Lorem Khaled Ipsum is a major key to success.
+                    Celebrate success right, the only way, apple. They don’t want us to eat.
+                    They key is to have every key, the key to open every door. How’s business? Boomin.
+                    The other day the grass was brown, now it’s green because I ain’t give up. Never surrender.
+                    Celebrate success right, the only way, apple. Surround yourself with angels.</p>
+            </div>
+        </div>
     </div>
-
-    <!-- Submit Button -->
-    <div class="row">
-      <input name="btn_search" type="submit" class="btn btn-primary" value="SEARCH PROPERTY" style="background-color: #3dd978; margin-top:30px; width:100%; height:40px;">
-    </div>
-
-    </form>
-  </div>
 </div>
 
   <div style="margin-left: 200px;">
@@ -151,7 +71,7 @@ if(isset($_POST['btn_search'])) {
             }
 
             // Number of products (sql records) to be displayed per page
-            $no_of_records_per_page = 6;
+            $no_of_records_per_page = 4;
             $offset = ($pageno-1) * $no_of_records_per_page;
 
             // Get total number of pages
@@ -168,7 +88,7 @@ if(isset($_POST['btn_search'])) {
               $sql = $_POST['search_sql'] . " LIMIT $offset, $no_of_records_per_page";
             }
             else {
-              $sql = "SELECT * FROM products ORDER BY `id` DESC LIMIT $offset, $no_of_records_per_page";  // SQL statement for forming pages
+              $sql = "SELECT * FROM products WHERE type='Penthouse' ORDER BY `id` DESC LIMIT $offset, $no_of_records_per_page";  // SQL statement for forming pages
             }
             $result_data = mysqli_query($conn, $sql);
             while($row = mysqli_fetch_assoc($result_data)){
