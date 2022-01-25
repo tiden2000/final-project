@@ -13,6 +13,7 @@ if(isset($_POST['btn_contact_submit'])) {
         echo "Error";   
     } else {
         echo "Mail Sent Successfully";
+        header("location: contact.php");
     }
 }
 ?>
