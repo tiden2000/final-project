@@ -5,10 +5,10 @@ session_start();
 if(isset($_POST['btn_contact_submit'])) {
     $name = $_POST['first_name'] . " " . $_POST['last_name'];
     $sender = $_POST['email'];
-    $message = $_POST['message'];
+    $subject = $_POST['message'];
     $details = $_POST['paragraph_text'];
     $header = "From: " . $sender;
-    $result = mail("tiden2000@gmail.com", $message, $details, $header);
+    $result = mail("tiden2000@gmail.com", $subject, $details, $header);
     if(!$result) {   
         echo "Error";   
     } else {
