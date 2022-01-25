@@ -44,47 +44,49 @@ if(isset($_POST['btn_contact_submit'])) {
     <div class="contact">
         <div class="row">
             <div class="col">
-                <div class="contact-form">
+                <form action="" method="post" enctype="multipart/form-data">
+                    <div class="contact-form">
 
-                    <div class="row">
-                        <div class="col">
-                            <label>First Name</label><br>
-                            <input type="text" name="first_name" value="">
+                        <div class="row">
+                            <div class="col">
+                                <label>First Name</label><br>
+                                <input type="text" name="first_name" value="">
+                            </div>
+                            <div class="col">
+                                <label>Last Name</label><br>
+                                <input type="text" name="last_name" value="">
+                            </div>
                         </div>
-                        <div class="col">
-                            <label>Last Name</label><br>
-                            <input type="text" name="last_name" value="">
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Your Email</label><br>
+                                <input type="text" name="email" value="">
+                            </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Message</label><br>
+                                <input type="text" name="message" value="">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Details</label><br>
+                                <textarea name="paragraph_text" cols="50" rows="10"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <input name="btn_contact_submit" type="submit" class="contact-submit">
+                            </div>
+                        </div>
+
                     </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label>Your Email</label><br>
-                            <input type="text" name="email" value="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label>Message</label><br>
-                            <input type="text" name="message" value="">
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <label>Details</label><br>
-                            <textarea name="paragraph_text" cols="50" rows="10"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <input name="btn_contact_submit" type="submit" class="contact-submit">
-                        </div>
-                    </div>
-
-                </div>
+                <form>
             </div>
             <div class="col">
                 <div class="contact-introduction">
