@@ -13,5 +13,5 @@
     );
 
     // Connection info
-    $conn = mysqli_connect('final-year-project-325215:asia-southeast1:heroku-project', 'root', 'Chienbot123', 'finalprojectdb', '3306'); // enter your info
+    $conn = mysqli_connect('27.3.0.248', 'root', '', 'finalprojectdb'); // enter your info
 ?>
