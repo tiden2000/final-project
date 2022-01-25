@@ -15,9 +15,10 @@
     $servername = "34.87.175.108";
     $username = "root";
     $password = "Chienbot123";
+    $db = "finalprojectdb";
     
     // Create connection
-    $conn = mysqli_connect($servername, $username, $password);
+    $conn = mysqli_connect($servername, $username, $password, $db);
     
     // Check connection
     if (!$conn) {
