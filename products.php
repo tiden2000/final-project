@@ -151,7 +151,7 @@ if(isset($_POST['btn_search'])) {
             }
 
             // Number of products (sql records) to be displayed per page
-            $no_of_records_per_page = 6;
+            $no_of_records_per_page = 8;
             $offset = ($pageno-1) * $no_of_records_per_page;
 
             // Get total number of pages

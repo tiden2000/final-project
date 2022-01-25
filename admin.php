@@ -169,6 +169,15 @@ if(isset($_POST['btn_display_user'])) {
     $_SESSION['user_type'] = $row['type'];
 }
 
+if(isset($_POST['btn_search_user'])) {
+    $str = "";
+    if(!empty($_POST['search_name'])) {
+        $name = $_POST['search_name'];
+        $str = "SELECT * FROM users WHERE username='$name'";
+        $_SESSION['sql'] = $str;
+    }
+}
+
 if(isset($_POST['btn_update_account'])) {
     $id_old = $_SESSION['user_id'];
     $id = $_POST['up_id'];
@@ -373,6 +382,9 @@ if(isset($_POST['btn_delete_account'])) {
                             if(!empty($_POST['type'])) {
                                 $sql = $_SESSION['sql'];
                             }
+                            else if(!empty($_POST['search_name'])) {
+                                $sql = $_SESSION['sql'];
+                            }
                             else {
                                 $sql = "SELECT * FROM users";
                             }
@@ -381,6 +393,11 @@ if(isset($_POST['btn_delete_account'])) {
                             echo "<option value='" . $row['username'] . "'>" . $row['username'] . "</option>"; 
                         ?>
                     </select>
+
+                    <div class="form-group">
+                        <label>Search User</label>
+                        <input type="text" name="search_name" class="form-control" value="">
+                    </div>
 
                     <!-- Radio button options to choose user type-->
                     <label>Account Type</label><br>
@@ -392,6 +409,7 @@ if(isset($_POST['btn_delete_account'])) {
                     <label for="user">User</label>
                     <br>
 
+                    <input name="btn_search_user" type="submit" class="btn btn-primary" value="Search User" style="width:300px;margin-bottom:15px;;">
                     <input name="btn_display_type" type="submit" class="btn btn-primary" value="Open This Type Of Users" style="width:300px;margin-bottom:15px;">
                     <input name="btn_display_user" type="submit" class="btn btn-primary" value="Open User Account Information" style="width:300px;">
                 </form>

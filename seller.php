@@ -85,6 +85,22 @@ if(isset($_POST['btn_add'])) {
     header("location: seller.php");
 }
 
+if(isset($_POST['btn_details_add'])) {
+    $product_id = $_SESSION['selected_id'];
+
+    // Add details to the database
+    $description = $_POST["up_description"];
+    $area = $_POST["up_area"];
+    $bed = $_POST["up_bed"];
+    $bath = $_POST["up_bath"];
+    $garage = $_POST["up_garage"];
+    global $conn;
+    $sql = "INSERT INTO product_details (product_id, description, area, bedrooms, bathrooms, garages)
+    VALUES ($product_id, '$description', $area, $bed, $bath, $garage)";
+    mysqli_query($conn, $sql);
+
+    header("location: seller.php");
+}
 // Code for updating product
 
 if(isset($_POST['btn_display'])) {  // Display product information in the input bar
@@ -106,6 +122,27 @@ if(isset($_POST['btn_display'])) {  // Display product information in the input 
     $_SESSION['img_link'] = $row['img_link'];
     $_SESSION['country'] = $row['country'];
     $_SESSION['product_type'] = $row['type'];
+}
+
+if(isset($_POST['btn_details_display'])) {  // Display product information in the input bar
+    $selected = "";
+    if(!empty($_POST['product_details_list'])) {
+        $selected = $_POST['product_details_list'];
+    }
+    else {
+        echo 'Please select an existing product.';
+    }
+    global $conn;
+    $sql = "SELECT * FROM product_details WHERE product_id = '$selected'";
+    $result=mysqli_query($conn,$sql);
+    $row=mysqli_fetch_array($result);
+    echo "<br>";
+    $_SESSION['description'] = $row['description'];
+    $_SESSION['area'] = $row['area'];
+    $_SESSION['bed'] = $row['bedrooms'];
+    $_SESSION['bath'] = $row['bathrooms'];
+    $_SESSION['garage'] = $row['garages'];
+    $_SESSION['selected_id'] = $selected;
 }
 
 if(isset($_POST['btn_update'])) {  // Update product using data in the input bar
@@ -169,6 +206,21 @@ if(isset($_POST['btn_update'])) {  // Update product using data in the input bar
     header("location: seller.php");
 }
 
+if(isset($_POST['btn_details_update'])) {  // Update product using data in the input bar
+
+    $product_id = $_SESSION['selected_id'];
+    $description = $_POST['up_description'];
+    $area = $_POST['up_area'];
+    $bed = $_POST['up_bed'];
+    $bath = $_POST['up_bath'];
+    $garage = $_POST['up_garage'];
+    global $conn;
+    $sql = "UPDATE product_details SET description='$description', area=$area, bedrooms=$bed, bathrooms=$bath , garages=$garage WHERE product_id=$product_id";
+    $result=mysqli_query($conn,$sql);
+
+    header("location: seller.php");
+}
+
 if(isset($_POST['btn_delete'])) {  // Delete product
     $path = $_SESSION['img_link'];
     if(file_exists($path)) {
@@ -209,7 +261,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
 <?php include "header.php"; ?>
 
     <div class="tab-buttons">
-        <button onclick="productHide()">Product Management</button>
+        <button onclick="productHide()">Property Management</button>
         <script>
             function productHide() {
             var product = document.getElementById("product_form");
@@ -226,8 +278,8 @@ if(isset($_POST['btn_delete'])) {  // Delete product
     </div>
 
     <div id="product_form" style="display:block; width:1000px;">
-        <h2>Submit product</h2>
-        <p>Please fill this form to submit a product.</p>
+        <h2>Submit Property</h2>
+        <p>Please fill this form to submit a property.</p>
 
         <div class="row">
             <div class="col">
@@ -240,7 +292,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                 *************-->
                 <form action="" method="post" enctype="multipart/form-data" style="width:300px;">
                     <div class="form-group">
-                        <label>Product Name</label>
+                        <label>Property Name</label>
                         <input type="text" name="name" class="form-control" value="">
                     </div>    
                     
@@ -272,7 +324,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                     </select>
 
                     <!-- Radio button options to choose product type-->
-                    <label style="margin-top:30px;">Product Type</label><br>
+                    <label style="margin-top:30px;">Property Type</label><br>
                     <input type="radio" id="house" name="type" value="House">
                     <label for="house">House</label><br>
                     <input type="radio" id="apartment" name="type" value="Apartment">
@@ -287,14 +339,66 @@ if(isset($_POST['btn_delete'])) {  // Delete product
 
 
                     <div style="margin-top:30px;">
-                        <input name="btn_add" type="submit" class="btn btn-primary" value="Submit Product">
+                        <input name="btn_add" type="submit" class="btn btn-primary" value="Submit Property">
+                    </div>
+                </form>
+            </div>
+
+            <div class="col">
+                <!-- Form for adding more property details -->
+                <!-- Product drop down menu -->
+                <label>Choose Property</label>
+                <form action="" method="post" enctype="multipart/form-data" style="width:300px;">
+                    <select name= "product_details_list" id= "product_details_list_id" class="form-control" required>
+                        <?php
+                            $username = $_SESSION["username"];
+                            $sql = "SELECT * FROM products WHERE seller = '$username'";
+                            $result=mysqli_query($conn,$sql);
+                            while($row=mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>"; 
+                            }
+                        ?>
+                    </select>
+                    <input name="btn_details_display" type="submit" class="btn btn-primary" value="Open Property" style="margin-top:15px;">
+                </form>
+                <form enctype="multipart/form-data" action="" method="post" style="width:300px;">
+                    <div class="form-group">
+                        <label>Property Description</label>
+                        <textarea name="up_description" cols="55" rows="8" class="form-control"><?php if(isset($_SESSION['description'])){echo $_SESSION['description'];}?></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Area</label>
+                        <input type="text" name="up_area" class="form-control" value="<?php if(isset($_SESSION['area'])){echo $_SESSION['area'];}?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Bedroom</label>
+                        <input type="text" name="up_bed" class="form-control" value="<?php if(isset($_SESSION['bed'])){echo $_SESSION['bed'];}?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Bathroom</label>
+                        <input type="text" name="up_bath" class="form-control" value="<?php if(isset($_SESSION['bath'])){echo $_SESSION['bath'];}?>">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Property Garage</label>
+                        <input type="text" name="up_garage" class="form-control" value="<?php if(isset($_SESSION['garage'])){echo $_SESSION['garage'];}?>">
+                    </div>
+                    
+                    <div class="form-group">
+                        <input name="btn_details_add" type="submit" class="btn btn-primary" value="Add Details" style="margin-top:20px;">
+                    </div>
+                    <div class="form-group">
+                        <input name="btn_details_update" type="submit" class="btn btn-primary" value="Update Details" style="margin-top:20px;">
                     </div>
                 </form>
             </div>
 
             <div class="col">
                 <!-- Product drop down menu -->
-                <label>Choose Product</label>
+                <label>Choose Property</label>
                 <form action="" method="post" enctype="multipart/form-data" style="width:300px;">
                     <select name= "product_list" id= "product_list_id" class="form-control" required>
                         <?php
@@ -306,7 +410,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                             }
                         ?>
                     </select>
-                    <input name="btn_display" type="submit" class="btn btn-primary" value="Open Product" style="margin-top:15px;">
+                    <input name="btn_display" type="submit" class="btn btn-primary" value="Open Property" style="margin-top:15px;">
                 </form>
 
                 <!--************* 
@@ -318,7 +422,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                 *************-->
                 <form enctype="multipart/form-data" action="" method="post" style="width:300px;">
                     <div class="form-group">
-                        <label>Product Name</label>
+                        <label>Property Name</label>
                         <input type="text" name="up_name" class="form-control" value="<?php if(isset($_SESSION['name'])){echo $_SESSION['name'];}?>">
                     </div>    
                     
@@ -350,7 +454,7 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                     </select>
 
                     <!-- Radio button options to choose product type-->
-                    <label style="margin-top:30px;">Product Type</label><br>
+                    <label style="margin-top:30px;">Property Type</label><br>
                     <input type="radio" id="up_house" name="up_type" value="House"<?php if(isset($_SESSION['product_type']) and $_SESSION['product_type'] == "House") {echo "checked";}?>>
                     <label for="up_house">House</label><br>
                     <input type="radio" id="up_apartment" name="up_type" value="Apartment"<?php if(isset($_SESSION['product_type']) and $_SESSION['product_type'] == "Apartment") {echo "checked";}?>>
@@ -369,16 +473,16 @@ if(isset($_POST['btn_delete'])) {  // Delete product
                     </div>
 
                     <div>
-                        <p>Current Product Image:</p>
+                        <p>Current Property Image:</p>
                         <img src="<?php if(isset($_SESSION['img_link'])) {echo $_SESSION['img_link'];} ?>" alt="" style="width:500px; height:300px;">
                     </div>
 
                     <div class="form-group">
-                        <input name="btn_update" type="submit" class="btn btn-primary" value="Update Product" style="margin-top:20px;">
+                        <input name="btn_update" type="submit" class="btn btn-primary" value="Update Property" style="margin-top:20px;">
                     </div>
 
                     <div class="form-group">
-                        <input name="btn_delete" type="submit" class="btn btn-primary" value="Delete Product">
+                        <input name="btn_delete" type="submit" class="btn btn-primary" value="Delete Property">
                     </div>
                 </form>
             </div>
