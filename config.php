@@ -13,5 +13,5 @@
     );
 
     // Connection info
-    $conn = mysqli_connect('localhost', 'root', '', 'finalprojectdb'); // enter your info
+    $conn = mysqli_connect('34.87.175.108', 'root', 'Chienbot123', 'finalprojectdb'); // enter your info
 ?>
