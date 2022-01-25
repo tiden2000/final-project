@@ -12,6 +12,16 @@
         )   
     );
 
-    // Connection info
-    $conn = mysqli_connect('asia-southeast1:heroku-project', 'root', 'Chienbot123', 'finalprojectdb'); // enter your info
+    $servername = "34.87.175.108";
+    $username = "root";
+    $password = "Chienbot123";
+    
+    // Create connection
+    $conn = mysqli_connect($servername, $username, $password);
+    
+    // Check connection
+    if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+    echo "Connected successfully";
 ?>
