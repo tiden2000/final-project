@@ -8,7 +8,12 @@ if(isset($_POST['btn_contact_submit'])) {
     $message = $_POST['message'];
     $details = $_POST['paragraph_text'];
     $header = "From: " . $sender;
-    mail("tiden2000@gmail.com", $message, $details, $header);
+    $result = mail("tiden2000@gmail.com", $message, $details, $header);
+    if(!$result) {   
+        echo "Error";   
+    } else {
+        echo "Mail Sent Successfully";
+    }
 }
 ?>
 <!DOCTYPE html>
