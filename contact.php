@@ -1,6 +1,15 @@
 <?php
 // Initialize the session
 session_start();
+
+if(isset($_POST['btn_contact_submit'])) {
+    $name = $_POST['first_name'] . " " . $_POST['last_name'];
+    $sender = $_POST['email'];
+    $message = $_POST['message'];
+    $details = $_POST['paragraph_text'];
+    $header = "From: " . $sender;
+    mail("tiden2000@gmail.com", $message, $details, $header);
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,7 +74,7 @@ session_start();
 
                     <div class="row">
                         <div class="col">
-                            <input type="submit" class="contact-submit">
+                            <input name="btn_contact_submit" type="submit" class="contact-submit">
                         </div>
                     </div>
 
